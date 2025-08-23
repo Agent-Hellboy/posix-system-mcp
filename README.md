@@ -1,8 +1,7 @@
 # Linux System MCP Server
 
-[![Go Version](https://img.shields.io/badge/Go-1.21+-blue.svg)](https://golang.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![MCP](https://img.shields.io/badge/MCP-Compatible-orange.svg)](https://modelcontextprotocol.io)
+
 
 A high-performance Model Context Protocol (MCP) server built with Go that provides comprehensive Linux system monitoring capabilities. This server allows Claude Desktop, Cursor, and other MCP-compatible clients to access real-time system information including CPU usage, memory statistics, disk usage, network statistics, process information, and more.
 
@@ -37,7 +36,6 @@ A high-performance Model Context Protocol (MCP) server built with Go that provid
 - **Go**: 1.21 or higher
 - **Operating System**: Linux, macOS, Windows (optimized for Linux)
 - **MCP Client**: Claude Desktop, Cursor, or any MCP-compatible application
-- **Python 3**: Required for configuration management during installation
 
 ## 🔧 Installation
 
@@ -54,8 +52,6 @@ make install claude
 # Install for Cursor
 make install cursor
 
-# Install for both
-make install claude cursor
 ```
 
 ### Manual Build
@@ -63,9 +59,6 @@ make install claude cursor
 ```bash
 # Build the binary
 make build
-
-# Build for Linux (cross-compile from macOS)
-make build-linux
 
 # Create release package
 make release
@@ -167,24 +160,6 @@ For Cursor, the configuration is added to:
 ```
 
 ## 🛠️ Development
-
-### Project Structure
-
-```
-linux-system-mcp/
-├── main.go              # Main server implementation
-├── go.mod               # Go module file
-├── go.sum               # Go dependencies
-├── Makefile             # Build and installation scripts
-├── README.md            # Documentation
-├── LICENSE              # MIT License
-├── .gitignore           # Git ignore rules
-├── bin/                 # Built binaries (ignored by git)
-├── configs/             # Configuration templates
-│   ├── claude-desktop-config.json
-│   └── cursor-config.json
-└── .git/                # Git repository
-```
 
 ### Building
 
