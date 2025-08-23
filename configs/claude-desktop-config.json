@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "linux-system-monitor": {
+      "command": "/Users/agent-hellboy/.local/bin/linux-system-mcp",
+      "args": [],
+      "env": {},
+      "description": "High-performance Linux system monitoring MCP server built with Go"
+    }
+  }
+}
