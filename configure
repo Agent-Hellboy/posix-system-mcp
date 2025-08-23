@@ -1,0 +1,38 @@
+#!/bin/bash
+
+# Simple configure script for Linux System MCP Server
+# Just checks for Go and creates .configured file
+
+set -e
+
+echo "🔧 Configuring Linux System MCP Server..."
+
+# Check for Go (only essential requirement)
+if ! command -v go >/dev/null 2>&1; then
+    echo "❌ Error: Go is not installed or not in PATH"
+    echo "   Please install Go from https://golang.org/dl/"
+    exit 1
+fi
+
+GO_VERSION=$(go version | cut -d' ' -f3 | sed 's/go//')
+echo "✅ Go $GO_VERSION found"
+
+# Check if go.mod exists
+if [ ! -f "go.mod" ]; then
+    echo "❌ Error: go.mod not found"
+    echo "   Run 'go mod init' first"
+    exit 1
+fi
+
+echo "✅ go.mod found"
+
+# Create .configured file
+echo "# Configuration completed on $(date)" > .configured
+echo "GO_VERSION=$GO_VERSION" >> .configured
+echo "CONFIGURED=true" >> .configured
+
+echo "✅ Configuration complete!"
+echo ""
+echo "Run 'make deps' to install dependencies"
+echo "Run 'make build' to build the project"
+echo "Run 'make test' to run tests"

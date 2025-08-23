@@ -25,11 +25,27 @@ help:
 	@echo "Development targets:"
 	@echo "  run                Run the server directly"
 	@echo "  test               Run tests"
+	@echo "  test-verbose       Run tests with verbose output"
+	@echo "  test-cover         Run tests with coverage report"
+	@echo "  test-cover-html    Generate HTML coverage report"
+	@echo "  test-race          Run tests with race detection"
+	@echo "  test-bench         Run benchmarks"
+	@echo "  test-all           Run tests and benchmarks"
+	@echo "  test-short         Run tests in short mode"
+	@echo "  test-watch         Continuously run tests on file changes"
 	@echo "  deps               Install/update dependencies"
 	@echo "  fmt                Format code"
 	@echo "  lint               Run linter"
 	@echo ""
+	@echo "CI/CD targets:"
+	@echo "  check              Run tests with coverage and race detection"
+	@echo "  distcheck          Run all checks including linting"
+	@echo ""
+	@echo "End-user targets (require ./configure first):"
+	@echo "  build-configured   Build with configuration check"
+	@echo ""
 	@echo "Utility targets:"
+	@echo "  test-clean         Clean test artifacts"
 	@echo "  status             Show installation status"
 	@echo "  help               Show this help message"
 
@@ -163,13 +179,51 @@ uninstall:
 run:
 	go run .
 
-# Run tests
+# Test targets (merged from Makefile.test)
 test:
 	go test ./...
+
+# Run tests with verbose output
+test-verbose:
+	go test -v ./...
+
+# Run tests with coverage report
+test-cover:
+	go test -cover ./...
+
+# Run tests with coverage report and generate HTML report
+test-cover-html:
+	go test -coverprofile=coverage.out ./...
+	go tool cover -html=coverage.out -o coverage.html
+	@echo "Coverage report generated: coverage.html"
+
+# Run tests with race detection
+test-race:
+	go test -race ./...
+
+# Run benchmarks
+test-bench:
+	go test -bench=. ./...
+
+# Run tests and benchmarks together
+test-all: test test-bench
+
+# Clean test artifacts
+test-clean:
+	rm -f coverage.out coverage.html
+
+# Run tests in short mode (skip long-running tests)
+test-short:
+	go test -short ./...
+
+# Continuously run tests on file changes (requires entr)
+test-watch:
+	find . -name "*.go" | entr -c go test ./...
 
 # Clean build artifacts
 clean:
 	rm -rf bin/
+	rm -f coverage.out coverage.html .configured
 
 # Install dependencies
 deps:
@@ -215,4 +269,21 @@ release: clean build-linux
 	tar -czf bin/$(BINARY_NAME)-$(VERSION)-linux-amd64.tar.gz -C bin $(BINARY_NAME)-linux
 	@echo "✅ Release package created: bin/$(BINARY_NAME)-$(VERSION)-linux-amd64.tar.gz"
 
-.PHONY: help build build-linux install install-claude-config install-cursor-config claude cursor uninstall run test clean deps fmt lint status release
+# CI-compatible targets
+check: test-cover test-race
+	@echo "✅ All checks passed!"
+
+distcheck: check lint
+	@echo "✅ Distribution checks passed!"
+
+# Check if system is configured (for end users, not CI)
+check-configured:
+	@if [ ! -f ".configured" ]; then \
+		echo "❌ System not configured. Run ./configure first"; \
+		exit 1; \
+	fi
+
+# Build target that ensures configuration (for end users)
+build-configured: check-configured build
+
+.PHONY: help build build-linux install install-claude-config install-cursor-config claude cursor uninstall run test test-verbose test-cover test-cover-html test-race test-bench test-all test-clean test-short test-watch clean deps fmt lint status release check distcheck check-configured build-configured
