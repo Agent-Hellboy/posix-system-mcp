@@ -14,10 +14,6 @@ coverage.html
 # Documentation
 README.md
 LICENSE
-DEPLOYMENT.md
-
-# Keep smithery.yaml for deployment
-# smithery.yaml
 
 # IDE and editor files
 .vscode/
