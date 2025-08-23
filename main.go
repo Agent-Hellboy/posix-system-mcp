@@ -172,6 +172,15 @@ func main() {
 		os.Exit(0)
 	}
 
+	// --http flag for HTTP mode
+	if len(os.Args) > 1 && os.Args[1] == "--http" {
+		fmt.Fprintf(os.Stderr, "Starting HTTP server for Smithery deployment...\n")
+		StartHTTPServer()
+		return
+	}
+
+	// Default STDIO mode
+	fmt.Fprintf(os.Stderr, "Starting STDIO transport...\n")
 	server := mcp.NewServer(&mcp.Implementation{
 		Name:    ServerName,
 		Version: ServerVersion,

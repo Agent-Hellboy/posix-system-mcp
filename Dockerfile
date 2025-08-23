@@ -49,5 +49,5 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD ./posix-system-mcp --version || exit 1
 
-# Run the binary
-CMD ["./posix-system-mcp"]
+# Run the binary in HTTP mode
+CMD ["./posix-system-mcp", "--http"]

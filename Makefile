@@ -23,7 +23,8 @@ help:
 	@echo "  uninstall          Remove binary and configurations"
 	@echo ""
 	@echo "Development targets:"
-	@echo "  run                Run the server directly"
+	@echo "  run                Run the server directly (STDIO mode)"
+	@echo "  run-http           Run the server in HTTP mode (Smithery testing)"
 	@echo "  test               Run tests"
 	@echo "  test-verbose       Run tests with verbose output"
 	@echo "  test-cover         Run tests with coverage report"
@@ -181,9 +182,13 @@ uninstall:
 	fi
 	@echo "✅ Uninstallation complete!"
 
-# Run the server
+# Run the server (STDIO mode)
 run:
 	go run .
+
+# Run the server in HTTP mode (for Smithery testing)
+run-http:
+	go run . --http
 
 # Test targets (merged from Makefile.test)
 test:
@@ -311,4 +316,4 @@ docker-shell: docker-build
 docker-clean:
 	docker rmi $(DOCKER_IMAGE_NAME):$(DOCKER_TAG) 2>/dev/null || true
 
-.PHONY: help build build-linux install install-claude-config install-cursor-config claude cursor uninstall run test test-verbose test-cover test-cover-html test-race test-bench test-all test-clean test-short test-watch clean clean-all deps fmt lint status release check distcheck check-configured build-configured docker-build docker-run docker-shell docker-clean
+.PHONY: help build build-linux install install-claude-config install-cursor-config claude cursor uninstall run run-http test test-verbose test-cover test-cover-html test-race test-bench test-all test-clean test-short test-watch clean clean-all deps fmt lint status release check distcheck check-configured build-configured docker-build docker-run docker-shell docker-clean
