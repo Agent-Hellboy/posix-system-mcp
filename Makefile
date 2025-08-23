@@ -41,11 +41,17 @@ help:
 	@echo "  check              Run tests with coverage and race detection"
 	@echo "  distcheck          Run all checks including linting"
 	@echo ""
+	@echo "Docker targets:"
+	@echo "  docker-build       Build Docker image"
+	@echo "  docker-run         Run Docker container"
+	@echo "  docker-shell       Open shell in Docker container"
+	@echo ""
 	@echo "End-user targets (require ./configure first):"
 	@echo "  build-configured   Build with configuration check"
 	@echo ""
 	@echo "Utility targets:"
 	@echo "  test-clean         Clean test artifacts"
+	@echo "  clean-all          Clean everything including Docker images"
 	@echo "  status             Show installation status"
 	@echo "  help               Show this help message"
 
@@ -189,7 +195,7 @@ test-verbose:
 
 # Run tests with coverage report
 test-cover:
-	go test -cover ./...
+	go test -coverprofile=coverage.out ./...
 
 # Run tests with coverage report and generate HTML report
 test-cover-html:
@@ -224,6 +230,9 @@ test-watch:
 clean:
 	rm -rf bin/
 	rm -f coverage.out coverage.html .configured
+
+# Clean everything including Docker images
+clean-all: clean docker-clean
 
 # Install dependencies
 deps:
@@ -286,4 +295,20 @@ check-configured:
 # Build target that ensures configuration (for end users)
 build-configured: check-configured build
 
-.PHONY: help build build-linux install install-claude-config install-cursor-config claude cursor uninstall run test test-verbose test-cover test-cover-html test-race test-bench test-all test-clean test-short test-watch clean deps fmt lint status release check distcheck check-configured build-configured
+# Docker targets
+DOCKER_IMAGE_NAME=posix-system-mcp
+DOCKER_TAG=latest
+
+docker-build:
+	docker build -t $(DOCKER_IMAGE_NAME):$(DOCKER_TAG) .
+
+docker-run: docker-build
+	docker run --rm -it --name posix-system-mcp $(DOCKER_IMAGE_NAME):$(DOCKER_TAG)
+
+docker-shell: docker-build
+	docker run --rm -it --entrypoint /bin/sh $(DOCKER_IMAGE_NAME):$(DOCKER_TAG)
+
+docker-clean:
+	docker rmi $(DOCKER_IMAGE_NAME):$(DOCKER_TAG) 2>/dev/null || true
+
+.PHONY: help build build-linux install install-claude-config install-cursor-config claude cursor uninstall run test test-verbose test-cover test-cover-html test-race test-bench test-all test-clean test-short test-watch clean clean-all deps fmt lint status release check distcheck check-configured build-configured docker-build docker-run docker-shell docker-clean

@@ -77,6 +77,19 @@ make test      # Run tests
 make run       # Run server directly
 ```
 
+## Docker
+
+```bash
+# Build Docker image
+make docker-build
+
+# Run in Docker container
+make docker-run
+
+# Open shell in container
+make docker-shell
+```
+
 ## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
