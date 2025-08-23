@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Simple configure script for Linux System MCP Server
+# Simple configure script for POSIX System MCP Server
 # Just checks for Go and creates .configured file
 
 set -e
 
-echo "🔧 Configuring Linux System MCP Server..."
+echo "🔧 Configuring POSIX System MCP Server..."
 
 # Check for Go (only essential requirement)
 if ! command -v go >/dev/null 2>&1; then

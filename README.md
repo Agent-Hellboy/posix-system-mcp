@@ -1,18 +1,18 @@
-# Linux System MCP Server
+# POSIX System MCP Server
 
 [![CI](https://github.com/Agent-Hellboy/linux-system-mcp/actions/workflows/makefile.yml/badge.svg)](https://github.com/Agent-Hellboy/linux-system-mcp/actions/workflows/makefile.yml)
 [![codecov](https://codecov.io/gh/Agent-Hellboy/linux-system-mcp/branch/main/graph/badge.svg)](https://codecov.io/gh/Agent-Hellboy/linux-system-mcp)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Agent-Hellboy/linux-system-mcp)](https://goreportcard.com/report/github.com/Agent-Hellboy/linux-system-mcp)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-A high-performance Model Context Protocol (MCP) server built with Go that provides Linux system monitoring capabilities for Claude Desktop, Cursor, and other MCP clients.
+A high-performance Model Context Protocol (MCP) server built with Go that provides POSIX system monitoring capabilities for Claude Desktop, Cursor, and other MCP clients.
 
 ## Features
 
 - **System Info**: CPU, memory, disk, network, process monitoring  
 - **Real-time**: Live system metrics with minimal latency
 - **Lightweight**: Single binary, no external dependencies
-- **Cross-platform**: Linux, macOS, Windows (optimized for Linux)
+- **Cross-platform**: Linux, macOS, Unix variants (POSIX-compliant systems)
 
 ## Requirements
 

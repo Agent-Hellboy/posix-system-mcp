@@ -1,8 +1,8 @@
-# Linux System MCP Server Makefile
+# POSIX System MCP Server Makefile
 
 # Show help information
 help:
-	@echo "Linux System MCP Server Build Tool"
+	@echo "POSIX System MCP Server Build Tool"
 	@echo "===================================="
 	@echo ""
 	@echo "Usage:"
@@ -49,7 +49,7 @@ help:
 	@echo "  status             Show installation status"
 	@echo "  help               Show this help message"
 
-BINARY_NAME=linux-system-mcp
+BINARY_NAME=posix-system-mcp
 VERSION=1.0.0
 INSTALL_DIR=$(HOME)/.local/bin
 CLAUDE_CONFIG_DIR=$(HOME)/Library/Application Support/Claude
@@ -90,7 +90,7 @@ install-claude-config:
 		echo "📝 Updating existing Claude Desktop config..."; \
 		python3 -c "import json, sys; \
 			config = json.load(open('$(CLAUDE_CONFIG_FILE)')) if open('$(CLAUDE_CONFIG_FILE)').read().strip() else {'mcpServers': {}}; \
-			config.setdefault('mcpServers', {})['linux-system-monitor'] = { \
+			config.setdefault('mcpServers', {})['posix-system-monitor'] = { \
 				'command': '$(INSTALL_DIR)/$(BINARY_NAME)', \
 				'args': [], \
 				'env': {}, \
@@ -101,11 +101,11 @@ install-claude-config:
 		echo "📄 Creating new Claude Desktop config..."; \
 		echo '{ \
 		  "mcpServers": { \
-		    "linux-system-monitor": { \
+		    "posix-system-monitor": { \
 		      "command": "$(INSTALL_DIR)/$(BINARY_NAME)", \
 		      "args": [], \
 		      "env": {}, \
-		      "description": "High-performance Linux system monitoring MCP server built with Go" \
+		      "description": "High-performance POSIX system monitoring MCP server built with Go" \
 		    } \
 		  } \
 		}' > "$(CLAUDE_CONFIG_FILE)"; \
@@ -119,7 +119,7 @@ install-cursor-config:
 		echo "📝 Updating existing Cursor config..."; \
 		python3 -c "import json, sys; \
 			config = json.load(open('$(CURSOR_CONFIG_FILE)')) if open('$(CURSOR_CONFIG_FILE)').read().strip() else {'mcpServers': {}}; \
-			config.setdefault('mcpServers', {})['linux-system-monitor'] = { \
+			config.setdefault('mcpServers', {})['posix-system-monitor'] = { \
 				'command': '$(INSTALL_DIR)/$(BINARY_NAME)', \
 				'args': [], \
 				'env': {}, \
@@ -130,11 +130,11 @@ install-cursor-config:
 		echo "📄 Creating new Cursor config..."; \
 		echo '{ \
 		  "mcpServers": { \
-		    "linux-system-monitor": { \
+		    "posix-system-monitor": { \
 		      "command": "$(INSTALL_DIR)/$(BINARY_NAME)", \
 		      "args": [], \
 		      "env": {}, \
-		      "description": "High-performance Linux system monitoring MCP server built with Go" \
+		      "description": "High-performance POSIX system monitoring MCP server built with Go" \
 		    } \
 		  } \
 		}' > "$(CURSOR_CONFIG_FILE)"; \
@@ -157,7 +157,7 @@ uninstall:
 		echo "🔧 Removing from Claude Desktop config..."; \
 		python3 -c "import json; \
 			config = json.load(open('$(CLAUDE_CONFIG_FILE)')); \
-			config.get('mcpServers', {}).pop('linux-system-monitor', None); \
+			config.get('mcpServers', {}).pop('posix-system-monitor', None); \
 			json.dump(config, open('$(CLAUDE_CONFIG_FILE)', 'w'), indent=2)"; \
 		echo "✅ Removed from Claude Desktop config"; \
 	else \
@@ -167,7 +167,7 @@ uninstall:
 		echo "🔧 Removing from Cursor config..."; \
 		python3 -c "import json; \
 			config = json.load(open('$(CURSOR_CONFIG_FILE)')); \
-			config.get('mcpServers', {}).pop('linux-system-monitor', None); \
+			config.get('mcpServers', {}).pop('posix-system-monitor', None); \
 			json.dump(config, open('$(CURSOR_CONFIG_FILE)', 'w'), indent=2)"; \
 		echo "✅ Removed from Cursor config"; \
 	else \
@@ -247,12 +247,12 @@ status:
 	else \
 		echo "❌ Binary: Not installed"; \
 	fi
-	@if [ -f "$(CLAUDE_CONFIG_FILE)" ] && grep -q "linux-system-monitor" "$(CLAUDE_CONFIG_FILE)"; then \
+	@if [ -f "$(CLAUDE_CONFIG_FILE)" ] && grep -q "posix-system-monitor" "$(CLAUDE_CONFIG_FILE)"; then \
 		echo "✅ Claude Desktop: Configured"; \
 	else \
 		echo "❌ Claude Desktop: Not configured"; \
 	fi
-	@if [ -f "$(CURSOR_CONFIG_FILE)" ] && grep -q "linux-system-monitor" "$(CURSOR_CONFIG_FILE)"; then \
+	@if [ -f "$(CURSOR_CONFIG_FILE)" ] && grep -q "posix-system-monitor" "$(CURSOR_CONFIG_FILE)"; then \
 		echo "✅ Cursor: Configured"; \
 	else \
 		echo "❌ Cursor: Not configured"; \

@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	ServerName    = "linux-system-mcp"
+	ServerName    = "posix-system-mcp"
 	ServerVersion = "1.0.0"
 )
 

@@ -314,7 +314,7 @@ func TestServerRegistration(t *testing.T) {
 }
 
 func TestConstants(t *testing.T) {
-	assert.Equal(t, "linux-system-mcp", ServerName)
+	assert.Equal(t, "posix-system-mcp", ServerName)
 	assert.Equal(t, "1.0.0", ServerVersion)
 	assert.NotEmpty(t, Version)
 }
