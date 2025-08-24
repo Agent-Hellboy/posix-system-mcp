@@ -1,8 +1,8 @@
 # POSIX System MCP Server
 
-[![CI](https://github.com/Agent-Hellboy/linux-system-mcp/actions/workflows/makefile.yml/badge.svg)](https://github.com/Agent-Hellboy/linux-system-mcp/actions/workflows/makefile.yml)
+[![CI](https://github.com/Agent-Hellboy/posix-system-mcp/actions/workflows/makefile.yml/badge.svg)](https://github.com/Agent-Hellboy/posix-system-mcp/actions/workflows/makefile.yml)
 [![codecov](https://codecov.io/gh/Agent-Hellboy/posix-system-mcp/graph/badge.svg?token=zKt3tigjRQ)](https://codecov.io/gh/Agent-Hellboy/posix-system-mcp)
-[![Go Report Card](https://goreportcard.com/badge/github.com/Agent-Hellboy/linux-system-mcp)](https://goreportcard.com/report/github.com/Agent-Hellboy/linux-system-mcp)
+[![Go Report Card](https://goreportcard.com/badge/github.com/Agent-Hellboy/posix-system-mcp)](https://goreportcard.com/report/github.com/Agent-Hellboy/posix-system-mcp)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A high-performance Model Context Protocol (MCP) server built with Go that provides POSIX system monitoring capabilities for Claude Desktop, Cursor, and other MCP clients.
@@ -23,8 +23,8 @@ A high-performance Model Context Protocol (MCP) server built with Go that provid
 
 ```bash
 # Clone the repository
-git clone https://github.com/Agent-Hellboy/linux-system-mcp.git
-cd linux-system-mcp
+git clone https://github.com/Agent-Hellboy/posix-system-mcp.git
+cd posix-system-mcp
 
 # Configure system (checks Go installation)
 ./configure
